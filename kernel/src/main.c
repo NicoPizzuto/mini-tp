@@ -17,6 +17,7 @@ int main(int argc, char* argv[]) {
     socket_servidor = iniciarServidor(puerto_escucha);
     socket_cpu = esperarConexion(socket_servidor);
     socket_memoria = crearConexion(ip_memoria, puerto_memoria);
+    enviarOpCode(socket_memoria, KERNEL);
     log_info(logger, "Se conecto la cpu");
     return 0;
 }

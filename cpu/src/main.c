@@ -16,6 +16,7 @@ int main(int argc, char* argv[]) {
     logger = log_create("cpu.log", "CPU", true, log_level);
     socket_kernel = crearConexion(ip_kernel, puerto_kernel);
     socket_memoria = crearConexion(ip_memoria, puerto_memoria);
+    enviarOpCode(socket_memoria, CPU);
     return 0;
 }
 
