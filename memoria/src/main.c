@@ -18,72 +18,31 @@ int main(int argc, char* argv[]) {
     saludar("memoria");
     obtenerConfig();
     logger = log_create("memoria.log", "MEMORIA", true, log_level);
+    socket_servidor = iniciarServidor(puerto_escucha);
 
     /*
+    No podemos saber cual es el cual por el momento
+
     socket_cpu = esperarConexion(socket_servidor);
     log_info(logger, "Se conecto cpu");
     socket_kernel = esperarConexion(socket_servidor);
     log_info(logger, "Se conecto kernel");
     */
-
+   
     memoria_fisica = malloc(tam_memoria);
     crearBitMap();
     de_pid_a_tabla = dictionary_create();
     memoria_restante = tam_memoria;
 
-    /*
     escribirMemoria(500, "holaaaa");
-    leerMemoria(500, 5)
+    leerMemoria(500, 5);
 
     reservarMemoriaParaProceso(0, 48);
     reservarMemoriaParaProceso(1, 48);
     liberarProceso(1);
     reservarMemoriaParaProceso(2, 30);
     log_info(logger, "La pagina 3 del proceso 2 esta en el marco %d", paginaFisicaDeLogica(2, 3));
-    */
-
-    identificarCliente();
     return 0;
-}
-
-void identificarCliente() {
-    socket_servidor = iniciarServidor(puerto_escucha);
-    for (int i = 0; i < 2; i++) {
-        int socket_misterioso = esperarConexion(socket_servidor);
-        int op_code = recibirOperacion(socket_misterioso);
-        if (op_code == KERNEL) {
-            socket_kernel = socket_misterioso;
-        }
-        else if (op_code == CPU) {
-            socket_cpu = socket_misterioso;
-        }
-    }
-}
-
-void atenderCPU() {
-    while(1) {
-        int op_code = recibirOperacion(socket_cpu);
-        switch (op_code) {
-            case LEER:
-                break;
-            case ESCRIBIR:
-                break;
-            case PAGINA_FISICA:
-                break;
-        }
-    }
-}
-
-void atenderKernel() {
-    while(1) {
-        int op_code = recibirOperacion(socket_kernel);
-        switch (op_code) {
-            case CARGAR_PROC:
-                break;
-            case DESCARGAR_PROC:
-                break;
-        }
-    }
 }
 
 char* leerMemoria(int direccion, int tamanio) {

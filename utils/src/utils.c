@@ -1,5 +1,9 @@
 #include "utils.h"
 
+void saludar(char* quien) {
+    printf("Hola desde %s!!\n", quien);
+}
+
 int iniciarServidor(int puerto) {
     struct addrinfo hints, *server_info;
     int fd_escucha, err;
@@ -125,8 +129,4 @@ int crearConexion(char* ip, int puerto) {
     freeaddrinfo(server_info);
     printf("Conectado al servidor %s:%d\n", ip, puerto);
     return fd_conexion;
-}
-
-void saludar(char* quien) {
-    printf("Hola desde %s!!\n", quien);
 }
